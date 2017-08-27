@@ -19,31 +19,25 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
+		Scanner leitor = new Scanner(System.in);
 		Calculadora c = new Calculadora();
 		
-		c.add(3);
-		c.add(50);
-		c.add(6);
-		c.add(29);
-		c.add(39);
-		c.add(87);
-		c.add(24);
-		c.add(46);
-		c.add(16);
-		c.add(8);
-		c.add(2);
-		c.add(73);
-		c.add(19);
-		c.add(5);
-		c.add(37);
-		c.add(37);
-		c.add(37);
-		c.add(37);
-		c.add(1000);
+		System.out.println("Informe a quantidade de itens da amostra: ");
+		int qnt = leitor.nextInt();
+		
+		for(int i = 0; i < qnt; i++) {
+			int v = leitor.nextInt();
+			c.add(v);
+		}
 		
 		System.out.print(c.getTabelaFrequenciaOrdenada());
-		System.out.print("\n\n\n" + c.getSize());
-		System.out.print("\n\n\n" + c.getAmostra());
+		System.out.print("\n\nQuantidade de elementos:  " + c.getSize());
+		System.out.print("\n\nMedia:  " + c.getMedia());
+		System.out.print("\n\nModa:  " + c.getModa());
+		System.out.print("\n\nMediana:  " + c.getMediana());
+		System.out.print("\n\nAmostra:\n" + c.getAmostra());
+		
+		//System.out.print("\n\n\n" + c.getAmostraOrdenada());
 	}
 
 }

@@ -1,6 +1,8 @@
 package funcoes;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedSet;
@@ -100,6 +102,42 @@ public class Calculadora {
 	
 	public int getValor(int n) {
 		return this.intArray.get(n);
+	}
+	
+	public double getMedia() {
+		double total = 0.0;
+		for(int i = 0; i < this.intArray.size(); i++) {
+			total += intArray.get(i);
+		}
+		return total / intArray.size();
+	}
+	
+	public int getModa() {
+		SortedSet<Integer> keys = new TreeSet<Integer>(frequencias.keySet());
+		
+		int valor = 0;
+		int fr = 0;
+		
+		for(Integer key : keys) {
+			if(frequencias.get(key) >= fr) {
+				fr = frequencias.get(key);
+				valor = key;
+			}
+		}
+		
+		return valor;
+	}
+	
+	public double getMediana() {
+		Collections.sort(intArray);
+		if(intArray.size() % 2 == 0) {
+			int pos1 = (intArray.size()/2) - 1;
+			int pos2 = pos1 + 1;
+			return ((double) intArray.get(pos1) + (double) intArray.get(pos2)) / 2.0;
+		}else {
+			int pos = ((intArray.size() +1 ) / 2) - 1;
+			return (double) intArray.get(pos);
+		}
 	}
 	
     public String getTabelaFrequenciaOrdenada() {
@@ -215,6 +253,116 @@ public class Calculadora {
 				/* DEFININDO ESPAÇOS */
 				
 				try {
+					
+					
+					for(int c = 0; c <= 4; c++) {
+						
+						long num1 = (long) Math.pow(10, c);
+						long num2 = (long) Math.pow(10, (c + 1));
+						int atual = intArray.get(c * 6 + j);
+						
+						if(atual >= num1 && atual < num2) {
+							espaco = "    ";
+						}
+						
+					}
+					
+					/*for(int c = 0; c <= 7; c++) {
+						
+						if(intArray.get(i * 6 + j) >= Math.pow(10, c) && intArray.get(i * 6 + j) < Math.pow(10, c + 1)) {
+							espaco = "    ";
+						}
+						
+					}*/
+					
+					if(intArray.get(i * 6 + j) >= 0 && intArray.get(i * 6 + j) < 10) {
+						espaco = "    ";
+					}
+					if(intArray.get(i * 6 + j) >= 10 && intArray.get(i * 6 + j) < 100) {
+						espaco = "   ";
+					}
+					if(intArray.get(i * 6 + j) >= 100 && intArray.get(i * 6 + j) < 1000) {
+						espaco = "  ";
+					}
+					if(intArray.get(i * 6 + j) >= 1000 && intArray.get(i * 6 + j) < 10000) {
+						espaco = " ";
+					}
+					if(intArray.get(i * 6 + j) >= 10000 && intArray.get(i * 6 + j) < 100000) {
+						espaco = "";
+					}
+				}catch(Exception e) {
+					//System.out.println(e.getMessage());
+				}
+				
+				
+				/* DEFININDO CÉLULAS */
+				
+				int atual = (i * 6) + j;
+				
+				if(atual < getSize() - 1) {
+					sb.append(intArray.get(atual)).append(espaco).append(" | ");
+					
+				}
+				else if(atual == getSize()) {
+					sb.append(intArray.get(atual - 1)).append(espaco).append(" |");					
+				}
+				else {
+					sb.append("       |");
+				}			
+			}
+			
+			sb.append("\n  +-------+-------+-------+-------+-------+-------+");
+			
+			
+		}
+		
+		
+		
+		return sb.toString();		
+	}
+	
+public String getAmostraOrdenada() {
+		
+		StringBuilder sb = new StringBuilder();
+		int linhas = (int) Math.ceil(getSize()/6.0);
+		
+		String espaco = "";
+		
+		sb.append("\n  +-----------------------------------------------+");
+		sb.append("\n  |                    AMOSTRA                    |");
+		sb.append("\n  +-------+-------+-------+-------+-------+-------+");
+		
+		for(int i = 0; i < linhas; i++) {
+			
+			sb.append("\n  | ");
+			
+			for(int j = 0; j < 6; j++) {
+				
+				/* DEFININDO ESPAÇOS */
+				
+				try {
+					
+					
+					/*for(int c = 0; c <= 4; c++) {
+						
+						long num1 = (long) Math.pow(10, c);
+						long num2 = (long) Math.pow(10, (c + 1));
+						int atual = intArray.get(c * 6 + j);
+						
+						if(atual >= num1 && atual < num2) {
+							
+						}
+						
+					}
+					
+					for(int c = 0; c <= 7; c++) {
+						
+						if(intArray.get(i * 6 + j) >= Math.pow(10, c) && intArray.get(i * 6 + j) < Math.pow(10, c + 1)) {
+							espaco = "    ";
+						}
+						
+					}*/
+					
 					if(intArray.get(i * 6 + j) >= 0 && intArray.get(i * 6 + j) < 10) {
 						espaco = "    ";
 					}
@@ -260,6 +408,7 @@ public class Calculadora {
 		
 		return sb.toString();		
 	}
+	
 	
 	public String toString() {
 		
